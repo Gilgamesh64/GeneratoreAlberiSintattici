@@ -1,4 +1,4 @@
-package org.example;
+package org.treeMaker;
 
 
 import java.io.BufferedReader;
