@@ -1,25 +1,27 @@
-package org.treeMaker;
+package org.treemaker;
+
+import org.treemaker.parsing.AmbiguousSentence;
+import org.treemaker.parsing.Phrase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
         String url = "jdbc:sqlite:dizionario.db";
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Inserisci la parola da cercare: >");
-        String frase = scanner.nextLine();
-        String[] parole = frase.split(" ", -1);
+        String input = "la pesca ruota";
+        String[] words = input.split(" ", -1);
 
         try (Connection conn = DriverManager.getConnection(url)) {
             Statement st = conn.createStatement();
             var pstmt = conn.prepareStatement("SELECT * FROM parole WHERE forma = ?");
 
-            for (String chiave : parole) {
+            AmbiguousSentence as = new AmbiguousSentence();
+
+            for (String chiave : words) {
                 pstmt.setString(1, chiave);
 
                 var rs = pstmt.executeQuery();
@@ -28,14 +30,15 @@ public class Main {
                     String forma = rs.getString("forma");
                     String lemma = rs.getString("lemma");
                     String caratteristiche = rs.getString("caratteristiche");
-                    rs.close();
+                    as.add(Phrase.from(forma, lemma, caratteristiche));
+
                 }
+                rs.close();
             }
 
+            System.out.println(as);
             st.close();
             pstmt.close();
-            scanner.close();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

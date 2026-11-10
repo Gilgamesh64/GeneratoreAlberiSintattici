@@ -1,5 +1,4 @@
-package org.treeMaker;
-
+package org.treemaker;
 
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
