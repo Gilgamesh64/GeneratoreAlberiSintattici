@@ -1,7 +1,5 @@
 package org.treemaker.parsing;
 
-import org.treemaker.parsing.Phrase;
-
 import java.util.ArrayList;
 
 public class Sentence{
