@@ -2,6 +2,7 @@ package org.treemaker;
 
 import org.treemaker.parsing.AmbiguousSentence;
 import org.treemaker.parsing.Phrase;
+import org.treemaker.tree.Tree;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         String url = "jdbc:sqlite:dizionario.db";
-        String input = "la pesca ruota";
+        String input = "porta casa dizionario ruota pesca";
         String[] words = input.split(" ", -1);
 
         try (Connection conn = DriverManager.getConnection(url)) {
@@ -31,11 +32,9 @@ public class Main {
                     String lemma = rs.getString("lemma");
                     String caratteristiche = rs.getString("caratteristiche");
                     as.add(Phrase.from(forma, lemma, caratteristiche));
-
                 }
                 rs.close();
             }
-
             System.out.println(as);
             st.close();
             pstmt.close();

@@ -21,6 +21,15 @@ public class AmbiguousPhrase {
         return meanings.size();
     }
 
+    public int countVerbs(){
+        int count = 0;
+        for (Phrase phrase : meanings) {
+            if(phrase instanceof Verb)
+                count++;
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

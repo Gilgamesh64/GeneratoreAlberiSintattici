@@ -1,0 +1,42 @@
+merge di entry con caratteristiche uguali
+
+SUBSET FINORA
+ADJ -> :pos+m+s
+ADV -> 0
+ART -> -F:s
+ARTPRE -> -F:s
+NOUN -> -M:p
+VER -> :ger+pres / :part+pres+p+f / :ind+pres+3+p
+PRE -> 0
+
+CATEGORIE DI PAROLE SUPPORTATE
+ASP
+AUX
+CAU
+CE
+CI
+CON
+DET-DEMO
+DET-INDEF
+DET-NUM-CARD
+DET-POSS
+DET-WH
+INT
+MOD
+NE
+PRO-DEMO
+PRO-INDEF
+PRO-NUM
+PRO-PERS
+PRO-POSS
+PRO-WH
+SI
+TALE
+WH
+WH-CHE
+NPR -> 0
+
+CATEGORIE DI PAROLE NON SUPPORTATE
+ABL
+PON
+SENT

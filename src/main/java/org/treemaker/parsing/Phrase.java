@@ -26,17 +26,19 @@ public class Phrase {
                 category = withDash;
             }
         }
+
+        String restOf = caratteristiche.replace(category, "").substring(1);
         return switch (category){
-            case "VER" -> new Verb(forma, lemma, caratteristiche);
-            case "NOUN" -> new Noun(forma, lemma, caratteristiche);
-            case "ART" -> new Article(forma, lemma, caratteristiche);
-            case "UNKNOWN" -> new Phrase(forma, lemma, caratteristiche);
-            default -> new Phrase(forma, lemma, caratteristiche);
+            case "VER" -> new Verb(forma, lemma, restOf);
+            case "NOUN" -> new Noun(forma, lemma, restOf);
+            case "ART" -> new Article(forma, lemma, restOf);
+            case "UNKNOWN" -> new Phrase(forma, lemma, restOf);
+            default -> new Phrase(forma, lemma, restOf);
         };
     }
 
     @Override
     public String toString() {
-        return "Forma: " + forma + "\nLemma: " + lemma + "\nCaratteristiche: " + caratteristiche;
+        return "Forma: " + forma + ", Lemma: " + lemma + ", ";
     }
 }
