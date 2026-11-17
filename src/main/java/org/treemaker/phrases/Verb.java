@@ -1,4 +1,4 @@
-package org.treemaker.parsing;
+package org.treemaker.phrases;
 
 public class Verb extends Phrase{
     private String mode;
@@ -34,6 +34,14 @@ public class Verb extends Phrase{
 
     @Override
     public String toString() {
-        return super.toString() + "mode: " + mode + ", tense: " + tense + ", number: " + number + ", person: " + person + ", gender: " + gender;
+        StringBuilder sb = new StringBuilder();
+        return sb.append(super.toString())
+            .append("VER, ")
+            .append("mode: ").append(mode).append(", ")
+            .append("tense: ").append(tense).append(", ")
+            .append("number: ").append(number).append(", ")
+            .append("person: ").append(person).append(", ")
+            .append("gender: ").append(gender)
+            .toString();
     }
 }

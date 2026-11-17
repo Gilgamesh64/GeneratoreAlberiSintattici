@@ -1,4 +1,4 @@
-package org.treemaker.parsing;
+package org.treemaker.phrases;
 
 public class Noun extends Phrase{
     private String gender;
@@ -14,6 +14,11 @@ public class Noun extends Phrase{
 
     @Override
     public String toString() {
-        return super.toString() + "gender: " + gender + ", person: " + person;
+        StringBuilder sb = new StringBuilder();
+        return sb.append(super.toString())
+            .append("NOUN, ")
+            .append("gender: ").append(gender).append(", ")
+            .append("person: ").append(person).append(", ")
+            .toString();
     }
 }

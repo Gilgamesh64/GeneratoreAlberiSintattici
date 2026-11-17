@@ -1,28 +1,27 @@
-package org.treemaker.parsing;
+package org.treemaker.phrases;
 
 public class Phrase {
     protected String forma;
     protected String lemma;
-    protected String caratteristiche;
 
     Phrase(String forma, String lemma, String caratteristiche){
         this.forma = forma;
         this.lemma = lemma;
-        this.caratteristiche = caratteristiche;
     }
 
-    public static Phrase from(String forma, String lemma, String caratteristiche){
+    public static Phrase from(String forma, String lemma, String caratteristiche) throws IllegalStateException{
         String category = "";
-        if(caratteristiche.matches("[A-Z]+")){
+        String regex = "[A-Z]+";
+        if(caratteristiche.matches(regex)){
             category = caratteristiche;
         }
         else{
             String withColon = caratteristiche.split(":", -1)[0];
             String withDash = caratteristiche.split("-", -1)[0];
-            if(withColon.matches("[A-Z]+")){
+            if(withColon.matches(regex)){
                 category = withColon;
             }
-            else if(withDash.matches("[A-Z]+")){
+            else if(withDash.matches(regex)){
                 category = withDash;
             }
         }
@@ -31,11 +30,16 @@ public class Phrase {
         return switch (category){
             case "VER" -> new Verb(forma, lemma, restOf);
             case "NOUN" -> new Noun(forma, lemma, restOf);
-            case "ART" -> new Article(forma, lemma, restOf);
-            case "UNKNOWN" -> new Phrase(forma, lemma, restOf);
-            default -> new Phrase(forma, lemma, restOf);
+            case "ART" -> new Article(forma, lemma, restOf, false);
+            case "ARTPRE" -> new Article(forma, lemma, restOf, true);
+            case "ADJ" -> new Adjective(forma, lemma, restOf);
+            default -> throw new IllegalStateException(
+                "Illegal category for phrase with forma: " + forma + ", lemma: " + ", caratteristiche: " + caratteristiche);
         };
     }
+
+    public String getForma() { return forma; }
+    public String getLemma() { return lemma; }
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 package org.treemaker.tree;
 
-import org.treemaker.parsing.Phrase;
+import org.treemaker.phrases.Phrase;
 
 public class Node{
     private Node left;
