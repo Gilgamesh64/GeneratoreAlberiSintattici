@@ -4,10 +4,10 @@ public class Noun extends Phrase{
     private String gender;
     private String person;
 
-    public Noun(String forma, String lemma, String caratteristiche) {
-        super(forma, lemma, caratteristiche);
+    public Noun(String form, String lemma, String features) {
+        super(form, lemma, features);
 
-        String[] split = caratteristiche.split(":");
+        String[] split = features.split(":");
         gender = split[0];
         person = split[1];
     }

@@ -6,10 +6,10 @@ public class Article extends Phrase{
     private String person;
     private boolean isPre;
     
-    Article(String forma, String lemma, String caratteristiche, boolean isPre) {
-        super(forma, lemma, caratteristiche);
+    Article(String form, String lemma, String features, boolean isPre) {
+        super(form, lemma, features);
 
-        String[] split = caratteristiche.split(":");
+        String[] split = features.split(":");
         gender = split[0];
         person = split[1];
 

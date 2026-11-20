@@ -7,10 +7,10 @@ public class Verb extends Phrase{
     private String person;
     private String gender;
 
-    public Verb(String forma, String lemma, String caratteristiche) {
-        super(forma, lemma, caratteristiche);
+    public Verb(String form, String lemma, String features) {
+        super(form, lemma, features);
 
-        String[] split = caratteristiche.split("\\+");
+        String[] split = features.split("\\+");
         if(split.length == 2){
             mode = split[0];
             tense = split[1];
@@ -31,6 +31,12 @@ public class Verb extends Phrase{
             
         }
     }
+
+    public String getMode() { return mode; }
+    public String getTense() { return tense; }
+    public Integer getNumber() {return number; }
+    public String getPerson() { return person; }
+    public String getGender() { return gender; }
 
     @Override
     public String toString() {

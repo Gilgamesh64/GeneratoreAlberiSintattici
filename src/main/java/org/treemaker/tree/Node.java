@@ -10,6 +10,7 @@ public class Node{
 
     public Node(String content){
         this.content = content;
+        this.phrase = null;
     }
     public Node(String content, Phrase phrase){
         this.content = content;
@@ -26,6 +27,11 @@ public class Node{
 
     @Override
     public String toString() {
-        return content;
+        StringBuilder sb = new StringBuilder(content);
+        
+        if(phrase != null)
+            sb.append("  ").append(phrase.getForm());
+
+        return sb.toString();
     }
 }

@@ -6,10 +6,10 @@ public class Adjective extends Phrase{
     private String person;
     private boolean isPos;
     
-    Adjective(String forma, String lemma, String caratteristiche) {
-        super(forma, lemma, caratteristiche);
+    Adjective(String form, String lemma, String features) {
+        super(form, lemma, features);
 
-        String[] split = caratteristiche.split("\\+");
+        String[] split = features.split("\\+");
         isPos = split[0].equals("pos");
         gender = split[1];
         person = split[2];

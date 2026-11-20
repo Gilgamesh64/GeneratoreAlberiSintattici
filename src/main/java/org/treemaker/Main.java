@@ -14,30 +14,34 @@ public class Main {
 
     public static void main(String[] args) {
         String url = "jdbc:sqlite:dizionario.db";
-        String input = "il gatto ruota";
+        String input = "il gatto mangia";
         String[] words = input.split(" ", -1);
 
         try (Connection conn = DriverManager.getConnection(url)) {
             Statement st = conn.createStatement();
-            var pstmt = conn.prepareStatement("SELECT * FROM parole WHERE forma = ?");
+            var pstmt = conn.prepareStatement("SELECT * FROM words WHERE form = ?");
 
             AmbiguousSentence as = new AmbiguousSentence();
 
-            for (String chiave : words) {
-                pstmt.setString(1, chiave);
+            for (String key : words) {
+                pstmt.setString(1, key);
 
                 var rs = pstmt.executeQuery();
 
                 while (rs.next()) {
-                    String forma = rs.getString("forma");
+                    String form = rs.getString("form");
                     String lemma = rs.getString("lemma");
-                    String caratteristiche = rs.getString("caratteristiche");
-                    as.add(Phrase.from(forma, lemma, caratteristiche));
+                    String features = rs.getString("features");
+                    as.add(Phrase.from(form, lemma, features));
                 }
                 rs.close();
             }
             Sentence s = as.solve();
             System.out.println(s);
+
+            Tree tree = new Tree(s);
+            System.out.println(tree);
+
             st.close();
             pstmt.close();
         } catch (SQLException e) {

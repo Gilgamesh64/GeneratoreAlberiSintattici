@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-public class ImportaMorphIt {
+public class ImportMorphIt {
 
     private static final int BATCH_SIZE = 1000;
 
@@ -30,25 +30,26 @@ public class ImportaMorphIt {
                 try (Statement st = conn.createStatement()) {
 
                     st.execute("DROP TABLE IF EXISTS parole");
+                    st.execute("DROP TABLE IF EXISTS words");
 
                     st.execute("""
-                        CREATE TABLE parole (
+                        CREATE TABLE words (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            forma TEXT NOT NULL,
+                            form TEXT NOT NULL,
                             lemma TEXT NOT NULL,
-                            caratteristiche TEXT NOT NULL,
-                            UNIQUE(forma, lemma, caratteristiche)
+                            features TEXT NOT NULL,
+                            UNIQUE(form, lemma, features)
                         )
                     """);
                 }
 
                 String sql = """
-                    INSERT INTO parole
-                    (forma, lemma, caratteristiche)
+                    INSERT INTO words
+                    (form, lemma, features)
                     VALUES (?, ?, ?)
                 """;
 
-                int totale = 0;
+                int total = 0;
                 int batch = 0;
 
                 try (BufferedReader reader =
@@ -69,28 +70,28 @@ public class ImportaMorphIt {
 
                         line = line.replace("\uFEFF", "");
 
-                        String[] campi = line.split("\t", -1);
+                        String[] fields = line.split("\t", -1);
 
-                        if (campi.length != 3) {
+                        if (fields.length != 3) {
                             continue;
                         }
 
-                        String forma = campi[0].trim();
-                        String lemma = campi[1].trim();
-                        String caratteristiche = campi[2].trim();
+                        String form = fields[0].trim();
+                        String lemma = fields[1].trim();
+                        String features = fields[2].trim();
 
-                        if (forma.isEmpty() || lemma.isEmpty()) {
+                        if (form.isEmpty() || lemma.isEmpty()) {
                             continue;
                         }
 
-                        ps.setString(1, forma);
+                        ps.setString(1, form);
                         ps.setString(2, lemma);
-                        ps.setString(3, caratteristiche);
+                        ps.setString(3, features);
 
                         ps.addBatch();
 
                         batch++;
-                        totale++;
+                        total++;
 
                         if (batch >= BATCH_SIZE) {
                             ps.executeBatch();
@@ -99,7 +100,7 @@ public class ImportaMorphIt {
                             batch = 0;
 
                             System.out.println(
-                                    "Importate " + totale + " righe..."
+                                    "total rows imported: " + total
                             );
                         }
                     }
@@ -114,16 +115,16 @@ public class ImportaMorphIt {
                 // Statistics
                 try (Statement st = conn.createStatement();
                      var rs = st.executeQuery(
-                             "SELECT COUNT(*) FROM parole")) {
+                             "SELECT COUNT(*) FROM words")) {
 
                     if (rs.next()) {
                         System.out.println(
-                                "Record effettivi: " + rs.getInt(1)
+                                "Records: : " + rs.getInt(1)
                         );
                     }
                 }
 
-                System.out.println("Importazione completata!");
+                System.out.println("Success!");
 
             } catch (Exception e) {
 

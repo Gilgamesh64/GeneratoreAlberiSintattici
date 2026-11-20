@@ -15,7 +15,7 @@ public class AmbiguousSentence{
     }
 
     public void add(Phrase s){
-        if(phrases.isEmpty() || !s.getForma().equals(phrases.getLast().getAny().getForma())){
+        if(phrases.isEmpty() || !s.getForm().equals(phrases.getLast().getAny().getForm())){
             AmbiguousPhrase as = new AmbiguousPhrase();
             as.addMeaning(s);
             phrases.add(as);
@@ -28,34 +28,31 @@ public class AmbiguousSentence{
 
     public Sentence solve(){
         Sentence sentence = new Sentence();
-        boolean articleFound = false;
-        boolean nounFound = false;
-        boolean verbFound = false;
 
         for (AmbiguousPhrase ap : phrases) {
 
             if(ap.countMeanings() == 1){
                 sentence.add(ap.getOnly());
-                if(ap.getOnly() instanceof Article) articleFound = true;
-                if(ap.getOnly() instanceof Noun) nounFound = true;
-                if(ap.getOnly() instanceof Verb) verbFound = true;
             }
             else{
-                if(ap.containsMeaning(Article.class) && !articleFound){
-                    articleFound = true;
+                if(ap.containsMeaning(Article.class) && !sentence.contains(Article.class)){
                     sentence.add(ap.getPhrase(Article.class));
                     continue;
                 }
-                if(ap.containsMeaning(Noun.class) && !nounFound){
-                    nounFound = true;
+                if(ap.containsMeaning(Noun.class) && !sentence.contains(Noun.class)){
                     sentence.add(ap.getPhrase(Noun.class));
                     continue;
                 }
-                if(ap.containsMeaning(Verb.class) && !verbFound){
-                    verbFound = true;
-                    ap.getAllPhrases(Verb.class).forEach(System.out::println);
-                    System.out.println();
-                    sentence.add(ap.getAllPhrases(Verb.class).getFirst());
+                if(ap.containsMeaning(Verb.class) && !sentence.contains(Verb.class)){
+                    for (Verb v : ap.getAllPhrases(Verb.class)) {
+                        if(v.getMode().equals("impr") && sentence.contains(Noun.class))
+                            continue;
+                        if(sentence.contains(Verb.class)){
+                            System.out.println("Ambiguous verb cannot be resolved: " + v);
+                        }
+                        else
+                            sentence.add(v);
+                    }
                     continue;
                 }
                 

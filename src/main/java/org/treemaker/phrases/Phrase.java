@@ -1,23 +1,23 @@
 package org.treemaker.phrases;
 
 public class Phrase {
-    protected String forma;
+    protected String form;
     protected String lemma;
 
-    Phrase(String forma, String lemma, String caratteristiche){
-        this.forma = forma;
+    Phrase(String form, String lemma, String features){
+        this.form = form;
         this.lemma = lemma;
     }
 
-    public static Phrase from(String forma, String lemma, String caratteristiche) throws IllegalStateException{
+    public static Phrase from(String form, String lemma, String features) throws IllegalStateException{
         String category = "";
         String regex = "[A-Z]+";
-        if(caratteristiche.matches(regex)){
-            category = caratteristiche;
+        if(features.matches(regex)){
+            category = features;
         }
         else{
-            String withColon = caratteristiche.split(":", -1)[0];
-            String withDash = caratteristiche.split("-", -1)[0];
+            String withColon = features.split(":", -1)[0];
+            String withDash = features.split("-", -1)[0];
             if(withColon.matches(regex)){
                 category = withColon;
             }
@@ -26,23 +26,23 @@ public class Phrase {
             }
         }
 
-        String restOf = caratteristiche.replace(category, "").substring(1);
+        String restOf = features.replace(category, "").substring(1);
         return switch (category){
-            case "VER" -> new Verb(forma, lemma, restOf);
-            case "NOUN" -> new Noun(forma, lemma, restOf);
-            case "ART" -> new Article(forma, lemma, restOf, false);
-            case "ARTPRE" -> new Article(forma, lemma, restOf, true);
-            case "ADJ" -> new Adjective(forma, lemma, restOf);
+            case "VER" -> new Verb(form, lemma, restOf);
+            case "NOUN" -> new Noun(form, lemma, restOf);
+            case "ART" -> new Article(form, lemma, restOf, false);
+            case "ARTPRE" -> new Article(form, lemma, restOf, true);
+            case "ADJ" -> new Adjective(form, lemma, restOf);
             default -> throw new IllegalStateException(
-                "Illegal category for phrase with forma: " + forma + ", lemma: " + ", caratteristiche: " + caratteristiche);
+                "Illegal category for phrase with form: " + form + ", lemma: " + ", features: " + features);
         };
     }
 
-    public String getForma() { return forma; }
+    public String getForm() { return form; }
     public String getLemma() { return lemma; }
 
     @Override
     public String toString() {
-        return "Forma: " + forma + ", Lemma: " + lemma + ", ";
+        return "Form: " + form + ", Lemma: " + lemma + ", ";
     }
 }
