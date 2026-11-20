@@ -7,7 +7,7 @@ import org.treemaker.phrases.Verb;
 
 public class Tree {
 
-    private Node root;
+    protected  Node root;
     private Sentence sentence;
 
     public Tree(Sentence sentence) {
@@ -93,5 +93,32 @@ public class Tree {
             printTree(node.getLeft(), sb,
                     prefix + (isTail ? "    " : "|   "), true);
         }
+    }
+
+    public String toJson() {
+        return nodeToJson(root);
+    }
+
+    private String nodeToJson(Node node) {
+        if (node == null) {
+            return "null";
+        }
+
+        StringBuilder sb = new StringBuilder("{");
+        sb.append("\"value\":\"").append(escapeJson(String.valueOf(node.value))).append("\",");
+        if(node.phrase != null) sb.append("\"word\":\"").append(escapeJson(node.phrase.getForm())).append("\",");
+        sb.append("\"left\":").append(nodeToJson(node.left)).append(",");
+        sb.append("\"right\":").append(nodeToJson(node.right)).append("}");
+
+        return sb.toString();
+    }
+
+    private String escapeJson(String value) {
+        return value
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
     }
 }

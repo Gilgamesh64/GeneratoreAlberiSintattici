@@ -1,22 +1,50 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TreeMaker</title>
+
+    <title>Binary Tree Viewer</title>
 
     <link rel="stylesheet" href="/style.css">
+
+    <!-- Local D3 library -->
+    <script src="/d3.v7.js"></script>
+
+    <!-- Our tree visualization -->
+    <script src="/script.js" defer></script>
 </head>
+
 <body>
 
-    <h1>TreeMaker</h1>
+    <header>
+        <h2>Syntax Tree Viewer</h2>
 
-    <input id="message" type="text" placeholder="Enter a message">
-    <button onclick="sendMessage(
-        document.getElementById('message').value
-    )">Send</button>
+        <div class="inputForm">
+            <h3>Insert a sentence: </h3>
+            <input type="text" id="userInput" placeholder="Enter your string..." />
+            <button onclick="loadTree(document.getElementById('userInput').value)">
+                Generate tree
+            </button>  
+        </div>
+        
+        
 
-    <script src="/script.js"></script>
+        <div class="toolbar">
+            <button id="zoom-in">Zoom +</button>
+            <button id="zoom-out">Zoom -</button>
+            <button id="zoom-reset">Reset zoom</button>
+            <button id="reload-button">Reload</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="status">Waiting for input...</div>
+
+        <div id="tree-container"></div>
+    </main>
+
 </body>
 </html>

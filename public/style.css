@@ -1,0 +1,148 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #263445;
+}
+
+header {
+    background: #263445;
+    color: white;
+    padding: 2px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.toolbar {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+main {
+    padding: 15px;
+}
+
+#status {
+    padding: 10px;
+    color: #64748b;
+}
+
+#tree-container {
+    width: 100%;
+    height: calc(100vh - 120px);
+    min-height: 400px;
+    overflow: auto;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+#tree-container svg {
+    display: block;
+    max-width: none;
+}
+
+.node circle {
+    fill: #2563eb;
+    stroke: white;
+    stroke-width: 3px;
+}
+
+.node text {
+    fill: white;
+    font-size: 13px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.link {
+    fill: none;
+    stroke: #94a3b8;
+    stroke-width: 2px;
+}
+
+
+.inputForm input {
+    box-sizing: border-box;
+    padding: 8px 9px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-family: inherit;
+    color: #334155;
+
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.inputForm input::placeholder {
+    color: #a0aec0;
+}
+
+.inputForm input:hover {
+    border-color: #cbd5e1;
+    background: #ffffff;
+}
+
+.inputForm input:focus {
+    background: #ffffff;
+    border-color: #818cf8;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+}
+
+
+.inputForm button {
+    padding: 14px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.inputForm button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+.inputForm {
+    text-align: center;
+}
+
+.node text.modifier {
+    fill: #ff9800;
+    font-size: 14px;
+    font-weight: normal;
+    dominant-baseline: auto;
+}

@@ -3,17 +3,17 @@ package org.treemaker.tree;
 import org.treemaker.phrases.Phrase;
 
 public class Node{
-    private Node left;
-    private Node right;
-    private final String content;
-    private Phrase phrase;
+    protected Node left;
+    protected Node right;
+    protected final String value;
+    protected Phrase phrase;
 
     public Node(String content){
-        this.content = content;
+        this.value = content;
         this.phrase = null;
     }
     public Node(String content, Phrase phrase){
-        this.content = content;
+        this.value = content;
         this.phrase = phrase;
     }
 
@@ -22,12 +22,12 @@ public class Node{
     public void setLeft(Node l){ left = l; }
     public void setRight(Node r){ right = r; }
 
-    public String getContent() { return content; }
+    public String getValue() { return value; }
     public Phrase getPhrase() { return phrase; }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(content);
+        StringBuilder sb = new StringBuilder(value);
         
         if(phrase != null)
             sb.append("  ").append(phrase.getForm());
