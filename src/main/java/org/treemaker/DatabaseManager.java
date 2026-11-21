@@ -45,6 +45,7 @@ public class DatabaseManager {
             st.close();
             pstmt.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return output;

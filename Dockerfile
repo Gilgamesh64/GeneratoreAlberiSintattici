@@ -35,6 +35,7 @@ WORKDIR /app
 # Copy only the generated application distribution
 COPY --from=builder /app/build/install/syntaxtree/ /app/
 COPY --from=builder /app/public /app/public
+COPY --from=builder /app/dizionario.db /app/dizionario.db
 
 
 # Expose the backend port
