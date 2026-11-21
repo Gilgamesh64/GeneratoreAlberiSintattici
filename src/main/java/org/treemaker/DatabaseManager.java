@@ -40,7 +40,6 @@ public class DatabaseManager {
 
             Tree tree = new Tree(s);
             output = tree.toJson();
-            System.out.println(output);
 
             st.close();
             pstmt.close();
