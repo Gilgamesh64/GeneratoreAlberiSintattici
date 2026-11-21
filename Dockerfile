@@ -18,6 +18,7 @@ RUN chmod +x gradlew
 # Copy source code
 COPY src ./src
 COPY public ./public
+COPY dizionario.db /app/dizionario.db
 
 # Build the application distribution
 RUN ./gradlew --no-daemon installDist
@@ -34,6 +35,7 @@ WORKDIR /app
 # Copy only the generated application distribution
 COPY --from=builder /app/build/install/syntaxtree/ /app/
 COPY --from=builder /app/public /app/public
+
 
 # Expose the backend port
 EXPOSE 8080
