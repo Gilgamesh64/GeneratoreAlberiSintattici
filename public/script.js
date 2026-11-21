@@ -94,7 +94,6 @@ function renderTree(data) {
     const container =
         document.getElementById("tree-container");
 
-    // Remove previous visualization
     container.innerHTML = "";
 
     currentZoom = null;
@@ -106,7 +105,6 @@ function renderTree(data) {
         return;
     }
 
-    // Prepare hierarchy
     const preparedData = prepareTree(data);
 
     const root = d3.hierarchy(
@@ -130,10 +128,6 @@ function renderTree(data) {
         d => !d.data.placeholder
     );
 
-    // Calculate dimensions, including placeholders
-    const minX = d3.min(allNodes, d => d.x);
-    const maxX = d3.max(allNodes, d => d.x);
-    const maxY = d3.max(allNodes, d => d.y);
 
     // Create SVG
     const svg = d3.select("#tree-container")
@@ -191,16 +185,11 @@ function renderTree(data) {
         .attr("y", NODE_RADIUS + 20)
         .text(d => d.data.word);
 
-    /*
-     * Position the complete tree
-     */
+    const minX = d3.min(allNodes, d => d.x);
+
     const offsetX = MARGIN - minX;
     const offsetY = MARGIN;
 
-    /*
-     * Enable zoom and pan.
-     * This does NOT make the tree editable.
-     */
     const zoom = d3.zoom()
         .scaleExtent([0.2, 3])
         .on("zoom", event => {
@@ -214,7 +203,6 @@ function renderTree(data) {
 
     svg.call(zoom);
 
-    // Set initial position
     svg.call(
         zoom.transform,
         d3.zoomIdentity.translate(

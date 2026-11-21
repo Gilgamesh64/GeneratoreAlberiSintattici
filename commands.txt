@@ -1,0 +1,4 @@
+docker build -t syntaxtree .
+docker stop syntaxtree-container
+docker rm syntaxtree-container
+docker run -d --name syntaxtree-container -p 8080:8080 syntaxtree

@@ -1,0 +1,17 @@
+.git
+.gitignore
+
+.gradle
+build/
+
+.idea
+.vscode
+
+*.iml
+
+.env
+.env.*
+
+.DS_Store
+
+README.md
